@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AnekApp 2.0</string>
+    <string name="next_anek">NEXT ANEK</string>
+    <string name="previous_anek">PREVIOUS ANEK</string>
+</resources>
