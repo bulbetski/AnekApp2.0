@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -53,7 +52,6 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Hold
     }
 
     public  class  Holder extends RecyclerView.ViewHolder {
-        CardView cardView = itemView.findViewById(R.id.card_view);
         TextView text;
         TextView likes;
         Button source;
