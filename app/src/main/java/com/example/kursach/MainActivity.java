@@ -1,10 +1,14 @@
 package com.example.kursach;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ShareActionProvider;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -17,6 +21,7 @@ import org.json.JSONArray;
 
 public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
+    private ShareActionProvider shareActionProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +80,36 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
     }
 
+    public Post getItem(){
+        return PostRepository
+                .getInstance()
+                .getPosts()
+                .get(viewPager2
+                        .getCurrentItem());
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (!PostRepository.getInstance().isEmpty()){
+            switch (item.getItemId()){
+                case R.id.share_button:
+                    Intent i = new Intent(
+                            android.content.Intent.ACTION_SEND);
+                    i.setType("text/plain");
+                    i.putExtra(
+                            android.content.Intent.EXTRA_TEXT,
+                            getItem().getText() + "\n\nSource: AnekApp 2.0");
+                    startActivity(Intent.createChooser(
+                            i,
+                            "Share Via"));
+                    break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

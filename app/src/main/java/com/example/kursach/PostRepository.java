@@ -25,6 +25,9 @@ public class PostRepository {
         return posts;
     }
 
+    public boolean isEmpty(){
+        return posts.size() == 0;
+    }
     public void load(JSONArray jsonArray){
 
         for (int i = 0; i < jsonArray.length(); i++){
